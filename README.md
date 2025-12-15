@@ -13,67 +13,66 @@ Created an automated cost-optimization system that uses AWS Lambda and CloudWatc
 ### 4. Create Event Bridge Scheduler
 
 
+Automate EC2 Start/Stop Using AWS Lambda & EventBridge
+Steps
+1. Create and Start Two EC2 Instances
 
-Understood.
-I will **correct only grammar, spelling, and formatting issues**.
-I will **NOT change your steps, meaning, flow, or add/remove anything.**
+Instance name: Powerproject1
 
-Here is the corrected version:
+Instance name: Powerproject2
 
----
+Start both instances and note the Instance IDs.
 
-````markdown
-# Automate EC2 Start/Stop Using AWS Lambda & EventBridge
+2. Create IAM Role
 
-## Steps
+Go to IAM → Roles → Create Role
 
-### **1. Create and Start Two EC2 Instances**
-- Instance name: **Powerproject1**
-- Instance name: **Powerproject2**
-- Start both instances and note the Instance IDs.
+Use case: Lambda
 
----
+Add permission policy: EC2FullAccess
 
-### **2. Create IAM Role**
-- Go to IAM → Roles → Create Role
-- Use case: **Lambda**
-- Add permission policy: **EC2FullAccess**
-- Role name: **myec2fullaccess**
+Role name: myec2fullaccess
 
----
+3. Create Lambda Function
 
-### **3. Create Lambda Function**
-- Create function name: **automate_power_cloud**
-- Runtime: **Python 3.12**
-- Execution role: **Existing role**
-- Existing role: **myec2fullaccess**
+Function name: automate_power_cloud
 
----
+Runtime: Python 3.12
 
-### **3.1 Stop Instances Lambda Code**
-- Open:  
-  **https://repost.aws/knowledge-center/start-stop-lambda-eventbridge**
-- Copy the code to stop the instances:
+Execution role: Existing role
 
-```python
-import boto3  
+Existing role: myec2fullaccess
+
+3.1 Stop Instances Lambda Code
+
+Open:
+https://repost.aws/knowledge-center/start-stop-lambda-eventbridge
+
+Copy the code to stop the instances:
+
+import boto3
+
 region = 'us-west-1'
 instances = ['i-12345cb6de4f78g9h', 'i-08ce9b2d7eccf6d26']
+
 ec2 = boto3.client('ec2', region_name=region)
 
 def lambda_handler(event, context):
     ec2.stop_instances(InstanceIds=instances)
     print('stopped your instances: ' + str(instances))
-````
 
-* Paste it into the Lambda code source.
-* Change the instance IDs and region.
-* Click **Deploy** and test.
 
-**Test configuration:**
+Paste it into the Lambda code source
 
-* Event name: **powercloudtext1**
-* Save and Test.
+Change the instance IDs and region
+
+Click Deploy and Test
+
+Test configuration
+
+Event name: powercloudtext1
+
+Save and Test
 
 ---
 
